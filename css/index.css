@@ -138,27 +138,6 @@ html {
 .mainbody {
   padding-top: 90px;
 }
-nav {
-  display: flex;
-  min-width: 100vw;
-  height: 6vh;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  margin: 0 12px 0 0;
-  padding: 0 6px 0 6px;
-  border-bottom: 1px solid #efefef;
-  margin-bottom: 32px;
-  position: fixed;
-  overflow: hidden;
-  background-color: #7dbae6;
-}
-.nav-links {
-  padding-right: 24px;
-  display: flex;
-  justify-content: space-between;
-}
 .nav-links a {
   color: #faf7f5;
   text-decoration: none;
