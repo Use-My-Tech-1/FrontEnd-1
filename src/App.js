@@ -8,6 +8,16 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false)
 
   return (
+<<<<<<< HEAD
+    <div className="container">
+        <Header />
+      <div className='mainbody'>
+          <Switch>
+            <Route path='/login'>
+              <Login setLoggedIn={setLoggedIn}/>
+           </Route>
+          </Switch>
+=======
     <div className='container'>
       <Header />
       <div className='mainbody'>
@@ -17,6 +27,7 @@ function App() {
             <Login setLoggedIn={setLoggedIn} />
           </Route>
         </Switch>
+>>>>>>> 4861536dbe26356ceb236cda487ff326534b969e
       </div>
     </div>
   )
