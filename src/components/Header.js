@@ -7,7 +7,7 @@ function Header() {
         <h1 className="pageHeader">Rent My Tech</h1>
         <div className='nav-links'>
           <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
+          <Link to="/signup">Sign Up</Link>
           <Link to="/tech-items">Tech2Rent</Link>
           <Link to="/createAuction">Add-Tech-Item</Link>
         </div>

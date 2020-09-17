@@ -3,56 +3,58 @@ import * as yup from "yup";
 import axios from "axios";
 
 const formSchema = yup.object().shape({
-    name: yup.string().required("Name is a required field")
+  fullName: yup.string().required("Name is a required field")
         .min(2, "Name must be at least 2 characters long.")
         .matches(/[a-zA-z][a-zA-Z]{2,}/, "Name must be letters only."),
     email: yup
       .string()
       .email("Must be a valid email address")
       .required("Must include email address"),
-    phone: yup.string(),
+    phone: yup.string().matches(/^\d{10}$/, 'is not valid'),
     address: yup.string().required("Please leave an address."),
     size: yup.string().required("Must pick your pizza size"),
     city: yup.string(),
     state: yup.string(),
     zipcode: yup.string(),
-    acountType: yup.string(),
+    acountType: yup.boolean(),
     username: yup.string(),
     password: yup.string(),
     confirmPassword: yup.string(),
+    terms: yup.boolean().oneOf([true], "Please agree to terms of use")
 });
 
 const SignUpForm = () => {
     // managing state for our form inputs
     const [formState, setFormState] = useState({
-      name: "",
+      fullName: "",
       email: "",
       phone: "",
       address: "",
       city: "",
       state:"",
       zipcode: "",
-      acountType: "",
+      acountType: false,
       username: "",
       password: "",
       confirmPassword: "",
+      terms: false
     });
   
     
   
     const [errorState, setErrorState] = useState({
-      name: "",
+      fullName: "",
       email: "",
       phone: "",
       address: "",
       city: "",
       state:"",
       zipcode: "",
-      acountType: "",
+      acountType: false,
       username: "",
       password: "",
       confirmPassword: "",
-
+      terms: ""
     });
   
     console.log("Error state", errorState)
@@ -75,14 +77,14 @@ const SignUpForm = () => {
       e.preventDefault();
       console.log("form submitted!");
       setFormState({
-        name: "",
+        fullName: "",
         email: "",
         phone: "",
         address: "",
         city: "",
         state:"",
         zipcode: "",
-        acountType: "",
+        acountType: false,
         username: "",
         password: "",
         confirmPassword: "",
@@ -108,6 +110,7 @@ const SignUpForm = () => {
       });
     }, [formState]);
   
+
     //form validation
     const validate = e => {
       let value =
@@ -133,18 +136,18 @@ const SignUpForm = () => {
 <div className="formContainer">
   <form onSubmit={formSubmit}>
   
-  <label htmlFor="name">
+  <label htmlFor="fullName">
           <h4>Name</h4>
           <input
             placeholder="Full Name"
             type="text"
-            name="name"
-            id="name"
-            value={formState.name}
+            name="fullName"
+            id="fullName"
+            value={formState.fullName}
             onChange={inputChange}
           />
-           {errorState.name.length > 2 ? (
-            <p className="error">{errorState.name}</p>
+           {errorState.fullName.length > 2 ? (
+            <p className="error">{errorState.fullName}</p>
           ) : null}
   </label>
   <label htmlFor="email">
@@ -169,7 +172,7 @@ const SignUpForm = () => {
   <label htmlFor="address"><h4>Address</h4>
           {errorState.address.length > 0 ? <p>{errorState.address}</p> : null}
   
-          <textarea name="address" placeholder="Your Address Here" value={formState.address} onChange={inputChange} />
+          <input type="address" name="address" placeholder="Your Address Here" value={formState.address} onChange={inputChange} />
   </label>
 
   <label htmlFor="city">
@@ -256,13 +259,25 @@ const SignUpForm = () => {
           <h4>Confirm Password</h4>
    </label>        
         <input
-            type="confirmPassword"
+            type="password"
             name="confirmPassword"
             id="confirmPassword"
             value={formState.confirmPassword}
             onChange={inputChange}
           />
-  
+  <label htmlFor="terms">
+        <input
+          type="checkbox"
+          id="terms"
+          name="terms"
+          checked={formState.terms}
+          onChange={inputChange}
+        />
+        Terms and Conditions
+        {errorState.terms.length > 0 ? (
+          <p className="error">{errorState.terms}</p>
+        ) : null}
+      </label>
   
    
   
