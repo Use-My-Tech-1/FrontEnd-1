@@ -1,3 +1,17 @@
+## Needed Components
+
+Login
+Register/Sign Up
+Post Item Form
+Item Gallery - list all items
+Item Card - individual item, description, delete item, rent item (dependly account)
+Rent Item
+
+
+## Stretch
+UploadImage
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
