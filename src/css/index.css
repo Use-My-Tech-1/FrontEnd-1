@@ -1,3 +1,45 @@
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: local('Lato Light Italic'), local('Lato-LightItalic'), url(https://fonts.gstatic.com/s/lato/v17/S6u_w4BMUTPHjxsI9w2PHA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v17/S6u8w4BMUTPHjxswWw.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v17/S6u_w4BMUTPHjxsI5wqPHA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: local('Lato Hairline'), local('Lato-Hairline'), url(https://fonts.gstatic.com/s/lato/v17/S6u8w4BMUTPHh30wWw.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v17/S6u9w4BMUTPHh6UVew8.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local('Lato Black'), local('Lato-Black'), url(https://fonts.gstatic.com/s/lato/v17/S6u9w4BMUTPHh50Xew8.ttf) format('truetype');
+}
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -119,18 +161,24 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+a {
+  text-decoration: none;
+  color: white;
+}
 html {
   font-size: 62.5%;
 }
 body {
   background: #f0f0f0;
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
 }
 .container {
   font-size: 2rem;
@@ -294,6 +342,10 @@ input.upload {
   max-width: 1200px;
   margin: 0 auto;
 }
+.rental-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+}
 .item-heading {
   display: flex;
   background-color: white;
@@ -439,4 +491,60 @@ input.upload {
   width: 100vw;
   background-position: center;
   background-size: cover;
+}
+.item {
+  width: 340px;
+  margin-bottom: 24px;
+  background: #fff 0 0 no-repeat padding-box;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.16);
+  border-radius: 8px;
+}
+.product {
+  position: relative;
+}
+.item-location-info {
+  position: absolute;
+  height: 60px;
+  bottom: 2px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.657);
+  display: flex;
+  align-items: center;
+}
+.item--product-image {
+  width: 100%;
+  height: 220px;
+}
+.item-location-icon {
+  color: white;
+  font-size: 2.3rem;
+  padding: 0 20px;
+}
+.item-location {
+  color: white;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.item-infomation {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.item-dollar-icon {
+  color: #8f8f8f;
+  padding: 0 2px;
+}
+.item-price {
+  align-self: flex-end;
+  margin-bottom: 20px;
+}
+.rental-term {
+  font-weight: 500;
+}
+.items-buttons {
+  margin-top: 20px;
+  text-align: center;
+}
+a:link {
+  color: white;
 }
