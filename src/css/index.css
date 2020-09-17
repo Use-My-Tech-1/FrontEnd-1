@@ -287,3 +287,6 @@ input.upload {
   border: 2px solid orange;
   cursor: pointer;
 }
+.test {
+  background: red;
+}
