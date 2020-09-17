@@ -8,7 +8,7 @@ function Header() {
         <div className='nav-links'>
           <Link to="/login">Login</Link>
           <Link to="/register">Register</Link>
-          <Link to="/auctions">Tech2Rent</Link>
+          <Link to="/tech-items">Tech2Rent</Link>
           <Link to="/createAuction">Add-Tech-Item</Link>
         </div>
       </nav>
