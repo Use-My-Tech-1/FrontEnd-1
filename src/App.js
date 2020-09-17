@@ -10,12 +10,14 @@ function App() {
 
   return (
     <div className="container">
-      <Header />
-        <Switch>
-          <Route path='/login'>
-            <Login setLoggedIn={setLoggedIn}/>
-          </Route>
-        </Switch>
+        <Header />
+      <div className='mainbody'>
+          <Switch>
+            <Route path='/login'>
+              <Login setLoggedIn={setLoggedIn}/>
+           </Route>
+          </Switch>
+      </div>
     </div>
   );
 }
