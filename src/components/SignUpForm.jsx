@@ -10,52 +10,41 @@ const formSchema = yup.object().shape({
       .string()
       .email("Must be a valid email address")
       .required("Must include email address"),
-    phone: yup.string().matches(/^\d{10}$/, 'is not valid'),
+    // phone: yup.string().matches(/^\d{10}$/, 'is not valid'),
     address: yup.string().required("Please leave an address."),
-    size: yup.string().required("Must pick your pizza size"),
-    city: yup.string(),
-    state: yup.string(),
-    zipcode: yup.string(),
-    acountType: yup.boolean(),
-    username: yup.string(),
-    password: yup.string(),
-    confirmPassword: yup.string(),
+    city: yup.string().required(),
+    state: yup.string().required(),
+    zipcode: yup.string().required(),
+    accountType: yup.string().required(),
+    username: yup.string().required(),
+    password: yup.string().required(),
+    confirmPassword: yup.string().required(),
     terms: yup.boolean().oneOf([true], "Please agree to terms of use")
 });
 
+
+
 const SignUpForm = () => {
     // managing state for our form inputs
-    const [formState, setFormState] = useState({
+
+    const defaultState ={
       fullName: "",
       email: "",
-      phone: "",
+      // phone: "5083647706",
       address: "",
       city: "",
       state:"",
       zipcode: "",
-      acountType: false,
+      accountType: '',
       username: "",
       password: "",
       confirmPassword: "",
       terms: false
-    });
+    }   
+
+   const [formState, setFormState] = useState(defaultState);
   
-    
-  
-    const [errorState, setErrorState] = useState({
-      fullName: "",
-      email: "",
-      phone: "",
-      address: "",
-      city: "",
-      state:"",
-      zipcode: "",
-      acountType: false,
-      username: "",
-      password: "",
-      confirmPassword: "",
-      terms: ""
-    });
+    const [errorState, setErrorState] = useState(defaultState);
   
     console.log("Error state", errorState)
   
@@ -63,12 +52,16 @@ const SignUpForm = () => {
     const inputChange = e => {
       e.persist();
       // console.log("input changed!", e.target.value, e.target.checked);
+      const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+      console.log('checked', e);
+      setFormState({
+        ...formState, [e.target.name] : value
+      })
+      
+      
+      
       validate(e);
-      let value =
-        e.target.type === "checkbox" ? e.target.checked : e.target.value;
-      setFormState({ ...formState, [e.target.name]: value });
-      console.log(formState)
-    };
+    }
   
   
     const [postedData, setPostedData] = useState([]); //place to hold the data coming back from the server
@@ -76,19 +69,19 @@ const SignUpForm = () => {
     const formSubmit = e => {
       e.preventDefault();
       console.log("form submitted!");
-      setFormState({
-        fullName: "",
-        email: "",
-        phone: "",
-        address: "",
-        city: "",
-        state:"",
-        zipcode: "",
-        acountType: false,
-        username: "",
-        password: "",
-        confirmPassword: "",
-          });
+      // setFormState({
+      //   fullName: "",
+      //   email: "",
+      //   phone: "",
+      //   address: "",
+      //   city: "",
+      //   state:"",
+      //   zipcode: "",
+      //   accountType: formState.accountType,
+      //   username: "",
+      //   password: "",
+      //   confirmPassword: "",
+      //     });
 
       axios
         .post("https://reqres.in/api/users", formState)
@@ -108,7 +101,7 @@ const SignUpForm = () => {
       formSchema.isValid(formState).then(valid => {
         setButtonDisabled(!valid);
       });
-    }, [formState]);
+    }, [formState, errorState]);
   
 
     //form validation
@@ -124,9 +117,9 @@ const SignUpForm = () => {
         .catch(err => {
           setErrorState({...errorState, [e.target.name]: err.errors[0]});
           console.log('no erro');
-          if (!errorState) {
-              setButtonDisabled(false)
-          }
+          // if (!errorState) {
+          //     setButtonDisabled(false)
+          // }
         });
     };
   
@@ -166,8 +159,8 @@ const SignUpForm = () => {
           ) : null}
  
 
-  <label htmlFor="phone">Enter your phone number:</label>
-<input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"></input>
+  {/* <label htmlFor="phone">Enter your phone number:</label>
+<input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"></input> */}
   
   <label htmlFor="address"><h4>Address</h4>
           {errorState.address.length > 0 ? <p>{errorState.address}</p> : null}
@@ -179,7 +172,7 @@ const SignUpForm = () => {
           <h4>City</h4>
    </label>        
         <input
-            type="city"
+            type="text"
             name="city"
             id="city"
             value={formState.city}
@@ -211,23 +204,23 @@ const SignUpForm = () => {
 
 
       <div className="sauceCard">
-      <h4 id="acountType">Account Type:</h4>
-      <label className="acountType" htmlFor="acountType">
+      <h4 id="accountType">Account Type:</h4>
+      <label className="accountType" htmlFor="accountType">
           <p>
           <input 
               type="radio"
-              name="acountType"
+              name="accountType"
               id="owner"
-              value={formState.acountType}
+              value='owner'
               onChange={inputChange}
           />Owner
           </p>
           <p>
           <input 
               type="radio"
-              name="acountType"
+              name="accountType"
               id="renter"
-              value={formState.acountType}
+              value='renter'
               onChange={inputChange}
           />Renter</p>
       </label>
@@ -272,6 +265,7 @@ const SignUpForm = () => {
           name="terms"
           checked={formState.terms}
           onChange={inputChange}
+          
         />
         Terms and Conditions
         {errorState.terms.length > 0 ? (
