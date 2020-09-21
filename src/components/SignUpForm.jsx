@@ -17,12 +17,13 @@ const formSchema = yup.object().shape({
     zipcode: yup.string().required(),
     accountType: yup.string().required(),
     username: yup.string().required(),
-    password: yup.string().required(),
-    confirmPassword: yup.string().required(),
+    password: yup.string().required("Password is required"),
+    confirmPassword: yup.string()
+       .oneOf([yup.ref('password'), null], 'Passwords must match'),
     terms: yup.boolean().oneOf([true], "Please agree to terms of use")
 });
 
-
+console.log(formSchema);
 
 const SignUpForm = () => {
     // managing state for our form inputs
@@ -69,19 +70,7 @@ const SignUpForm = () => {
     const formSubmit = e => {
       e.preventDefault();
       console.log("form submitted!");
-      // setFormState({
-      //   fullName: "",
-      //   email: "",
-      //   phone: "",
-      //   address: "",
-      //   city: "",
-      //   state:"",
-      //   zipcode: "",
-      //   accountType: formState.accountType,
-      //   username: "",
-      //   password: "",
-      //   confirmPassword: "",
-      //     });
+ 
 
       axios
         .post("https://reqres.in/api/users", formState)
@@ -108,18 +97,18 @@ const SignUpForm = () => {
     const validate = e => {
       let value =
         e.target.type === "checkbox" ? e.target.checked : e.target.value;
+
       yup
         .reach(formSchema, e.target.name)
         .validate(value)
         .then(valid => {
           setErrorState({...errorState, [e.target.name]: ""});
+          console.log('THEN', e.target.name);
         })
         .catch(err => {
           setErrorState({...errorState, [e.target.name]: err.errors[0]});
-          console.log('no erro');
-          // if (!errorState) {
-          //     setButtonDisabled(false)
-          // }
+          console.log('ERROR', err.errors[0]);
+
         });
     };
   
@@ -241,7 +230,7 @@ const SignUpForm = () => {
           <h4>Password</h4>
    </label>        
         <input
-            type="password"
+            type="text"
             name="password"
             id="password"
             value={formState.password}
@@ -252,7 +241,7 @@ const SignUpForm = () => {
           <h4>Confirm Password</h4>
    </label>        
         <input
-            type="password"
+            type="text"
             name="confirmPassword"
             id="confirmPassword"
             value={formState.confirmPassword}
