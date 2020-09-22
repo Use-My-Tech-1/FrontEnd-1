@@ -25,6 +25,7 @@ function ItemGallery() {
     getItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log("Main Page Data", userData);
   return (
     <>
       <div className="centerWrapper">

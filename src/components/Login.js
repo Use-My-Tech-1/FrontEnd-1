@@ -89,8 +89,6 @@ function Login(props) {
       ...login,
       [e.target.name]: e.target.value,
     });
-    console.log(login);
-    // validateChange(e);
   };
 
   return (

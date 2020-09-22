@@ -4,18 +4,14 @@ import { dummyData } from "../../dummyData";
 import MyItems from "./MyItems";
 
 function Dashboard(props) {
-  console.log("dummyData", dummyData);
-
   const filterItems = dummyData.filter(
     (item) => item.owner_id === props.location.state
   );
-  console.log("filterArray", filterItems);
 
   const itemsAvailable = dummyData.filter(
     (item) => item.owner_id === props.location.state && item.available === false
   );
 
-  console.log("Rented", itemsAvailable);
   return (
     <div>
       <div className="centerWrapper ">
