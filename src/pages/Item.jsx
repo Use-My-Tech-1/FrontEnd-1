@@ -3,6 +3,7 @@ import { GoLocation } from "react-icons/go";
 import { FaDollarSign } from "react-icons/fa";
 import { IoIosShareAlt } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 function Item({ data }) {
   return (
