@@ -7,6 +7,7 @@ import SignUpForm from './components/SignUpForm'
 import ItemCard from './pages/ItemCard'
 import Error404 from './pages/Error404'
 import PrivateRoute from './routes/PrivateRoute'
+import CreateTechItem from './components/CreateTechItem'
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
@@ -24,6 +25,9 @@ function App() {
             <Login setLoggedIn={setLoggedIn} />
           </Route>
           <PrivateRoute exact path='/' component={ItemGallery} />
+          <Route path='/add-tech-item'>
+            <CreateTechItem/>
+          </Route>
           <Route exact path='*' component={Error404} />
         </Switch>
       </div>
