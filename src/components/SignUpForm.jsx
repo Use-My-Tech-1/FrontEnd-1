@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
+import {useHistory} from 'react-router-dom';
 
 const formSchema = yup.object().shape({
   fullName: yup.string().required("Name is a required field")
@@ -27,16 +28,18 @@ console.log(formSchema);
 
 const SignUpForm = () => {
     // managing state for our form inputs
+    
+    let history = useHistory();
 
     const defaultState ={
-      fullName: "",
+      // fullName: "",
       email: "",
       // phone: "5083647706",
-      address: "",
-      city: "",
-      state:"",
-      zipcode: "",
-      accountType: '',
+      // address: "",
+      // city: "",
+      // state:"",
+      // zipcode: "",
+      owner: false,
       username: "",
       password: "",
       confirmPassword: "",
@@ -70,13 +73,12 @@ const SignUpForm = () => {
     const formSubmit = e => {
       e.preventDefault();
       console.log("form submitted!");
- 
-
       axios
-        .post("https://reqres.in/api/users", formState)
+        .post("https://use-tech.herokuapp.com/api/auth/register", formState, {withCredentials: true})
         .then((response) => {
-          setPostedData(response.data);
-  
+          console.log(response);
+          // setPostedData(response.data);
+          history.push('/login');
       })
         .catch(err => console.log(err));
   
@@ -118,7 +120,7 @@ const SignUpForm = () => {
 <div className="formContainer">
   <form onSubmit={formSubmit}>
   
-  <label htmlFor="fullName">
+  {/* <label htmlFor="fullName">
           <h4>Name</h4>
           <input
             placeholder="Full Name"
@@ -131,7 +133,7 @@ const SignUpForm = () => {
            {errorState.fullName.length > 2 ? (
             <p className="error">{errorState.fullName}</p>
           ) : null}
-  </label>
+  </label> */}
   <label htmlFor="email">
           <h4>Email</h4>
    </label>        
@@ -151,13 +153,13 @@ const SignUpForm = () => {
   {/* <label htmlFor="phone">Enter your phone number:</label>
 <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"></input> */}
   
-  <label htmlFor="address"><h4>Address</h4>
+  {/* <label htmlFor="address"><h4>Address</h4>
           {errorState.address.length > 0 ? <p>{errorState.address}</p> : null}
   
           <input type="address" name="address" placeholder="Your Address Here" value={formState.address} onChange={inputChange} />
-  </label>
+  </label> */}
 
-  <label htmlFor="city">
+  {/* <label htmlFor="city">
           <h4>City</h4>
    </label>        
         <input
@@ -166,9 +168,9 @@ const SignUpForm = () => {
             id="city"
             value={formState.city}
             onChange={inputChange}
-          />
+          /> */}
 
-    <label htmlFor="state">
+    {/* <label htmlFor="state">
           <h4>State</h4>
    </label>        
         <input
@@ -177,9 +179,9 @@ const SignUpForm = () => {
             id="state"
             value={formState.state}
             onChange={inputChange}
-          />
+          /> */}
 
-    <label htmlFor="zipcode">
+    {/* <label htmlFor="zipcode">
           <h4>Zip Code</h4>
    </label>        
         <input
@@ -188,7 +190,7 @@ const SignUpForm = () => {
             id="zipcode"
             value={formState.zipcode}
             onChange={inputChange}
-          />
+          /> */}
     
 
 
@@ -200,16 +202,17 @@ const SignUpForm = () => {
               type="radio"
               name="accountType"
               id="owner"
-              value='owner'
+              value='true'
               onChange={inputChange}
           />Owner
           </p>
           <p>
-          <input 
+          <input
+              defaultChecked="false" 
               type="radio"
               name="accountType"
               id="renter"
-              value='renter'
+              value='false'
               onChange={inputChange}
           />Renter</p>
       </label>

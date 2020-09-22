@@ -6,6 +6,7 @@ function Header() {
         <nav>
         <h1 className="pageHeader">Rent My Tech</h1>
         <div className='nav-links'>
+          <Link to="/">Home</Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
           <Link to="/tech-items">Tech2Rent</Link>
