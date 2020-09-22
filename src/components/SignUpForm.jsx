@@ -19,7 +19,11 @@ const formSchema = yup.object().shape({
     username: yup.string().required(),
     password: yup.string().required("Password is required"),
     confirmPassword: yup.string()
-       .oneOf([yup.ref('password'), null], 'Passwords must match'),
+        .required("Please confirm your password")
+        .when("password", {
+      is: password => (password && password.length > 0 ? true : false),
+      then: yup.string().oneOf([yup.ref("password")], "Password doesn't match")
+    }),
     terms: yup.boolean().oneOf([true], "Please agree to terms of use")
 });
 
@@ -118,6 +122,7 @@ const SignUpForm = () => {
 <div className="formContainer">
   <form onSubmit={formSubmit}>
   
+  <div className="fullName">
   <label htmlFor="fullName">
           <h4>Name</h4>
           <input
@@ -132,6 +137,9 @@ const SignUpForm = () => {
             <p className="error">{errorState.fullName}</p>
           ) : null}
   </label>
+  </div>
+
+  <div className="email">
   <label htmlFor="email">
           <h4>Email</h4>
    </label>        
@@ -146,17 +154,19 @@ const SignUpForm = () => {
           {errorState.email.length > 0 ? (
             <p className="error">{errorState.email}</p>
           ) : null}
- 
+ </div>
 
   {/* <label htmlFor="phone">Enter your phone number:</label>
 <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"></input> */}
-  
+  <div className="address">
   <label htmlFor="address"><h4>Address</h4>
           {errorState.address.length > 0 ? <p>{errorState.address}</p> : null}
   
           <input type="address" name="address" placeholder="Your Address Here" value={formState.address} onChange={inputChange} />
   </label>
+</div>
 
+<div className="city">
   <label htmlFor="city">
           <h4>City</h4>
    </label>        
@@ -167,7 +177,9 @@ const SignUpForm = () => {
             value={formState.city}
             onChange={inputChange}
           />
+</div>
 
+<div className="state">
     <label htmlFor="state">
           <h4>State</h4>
    </label>        
@@ -178,7 +190,9 @@ const SignUpForm = () => {
             value={formState.state}
             onChange={inputChange}
           />
+</div>
 
+<div className="zipcode">
     <label htmlFor="zipcode">
           <h4>Zip Code</h4>
    </label>        
@@ -189,10 +203,10 @@ const SignUpForm = () => {
             value={formState.zipcode}
             onChange={inputChange}
           />
-    
+</div>    
 
 
-      <div className="sauceCard">
+      <div className="accountType">
       <h4 id="accountType">Account Type:</h4>
       <label className="accountType" htmlFor="accountType">
           <p>
@@ -215,6 +229,7 @@ const SignUpForm = () => {
       </label>
       </div>
 
+      <div className="username">
     <label htmlFor="username">
           <h4>Username</h4>
     </label>        
@@ -225,28 +240,36 @@ const SignUpForm = () => {
             value={formState.username}
             onChange={inputChange}
           />
+</div>
 
+<div className="password">
     <label htmlFor="password">
           <h4>Password</h4>
    </label>        
         <input
-            type="text"
+            type="password"
             name="password"
             id="password"
             value={formState.password}
             onChange={inputChange}
           />
+</div>
 
+<div className="confirmPassword">
     <label htmlFor="confirmPassword">
           <h4>Confirm Password</h4>
    </label>        
         <input
-            type="text"
+            type="password"
             name="confirmPassword"
             id="confirmPassword"
             value={formState.confirmPassword}
             onChange={inputChange}
           />
+        
+</div>
+
+<div className="terms">
   <label htmlFor="terms">
         <input
           type="checkbox"
@@ -261,7 +284,7 @@ const SignUpForm = () => {
           <p className="error">{errorState.terms}</p>
         ) : null}
       </label>
-  
+  </div>
    
   
   
