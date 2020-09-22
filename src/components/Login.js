@@ -50,6 +50,8 @@ function Login(props) {
           ...userData,
           message: res.data.message,
           token: res.data.token,
+          owner: res.data.owner,
+          userId: res.data.id,
         });
 
         history.push("/");

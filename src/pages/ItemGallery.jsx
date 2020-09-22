@@ -5,16 +5,17 @@ import Api from "../utils/api";
 
 function ItemGallery() {
   const { userData, setUserData } = useContext(UserContext);
-  console.log("Item-Galery", userData);
 
   const Welcome = userData.message ? userData.message : "Welcome";
-  console.log("gallery", userData);
 
   const getItems = async () => {
     try {
       const response = await Api().get("/items");
-      console.log("api cell", response.data);
-      setUserData({ ...userData, data: response.data });
+
+      setUserData({
+        ...userData,
+        data: response.data,
+      });
     } catch (error) {
       console.log(error);
     }

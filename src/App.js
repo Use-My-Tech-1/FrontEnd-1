@@ -7,6 +7,8 @@ import SignUpForm from "./components/SignUpForm";
 import ItemCard from "./pages/ItemCard";
 import Error404 from "./pages/Error404";
 import PrivateRoute from "./routes/PrivateRoute";
+import OwnersRoute from "./routes/PrivateRoute";
+import Dashboard from "./pages/Owners/Dashboard";
 
 function App() {
   return (
@@ -17,7 +19,8 @@ function App() {
           <Route path="/signup" component={SignUpForm} />
           <PrivateRoute path="/item/:id" component={ItemCard} />
           <Route path="/login" component={Login} />
-          <PrivateRoute exact path="/" component={ItemGallery} />
+          <OwnersRoute exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/" component={ItemGallery} />
           <Route exact path="*" component={Error404} />
         </Switch>
       </div>

@@ -350,6 +350,27 @@ input.upload {
   padding-bottom: 2.5rem;
   color: #6b6a6a;
 }
+.item-card-update-items {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+.item-card-edit-btn {
+  background: #7dbae6;
+  color: white;
+}
+.item-card-edit-btn:hover {
+  background: white;
+  color: red;
+}
+.item-card-delete-btn {
+  background: red;
+  color: white;
+}
+.item-card-delete-btn:hover {
+  background: white;
+  color: red;
+}
 .item-heading {
   display: flex;
   background-color: white;
@@ -489,7 +510,7 @@ input.upload {
 .error404 {
   position: absolute;
   top: 60px;
-  background-image: url('https://static.dribbble.com/users/1191144/screenshots/3544235/monster-gif.gif');
+  background-image: url("https://static.dribbble.com/users/1191144/screenshots/3544235/monster-gif.gif");
   background-repeat: no-repeat;
   height: 100vh;
   width: 100vw;
@@ -551,4 +572,43 @@ input.upload {
 }
 a:link {
   color: white;
+}
+.dashboard {
+  border: solid red;
+  display: flex;
+}
+.dashboard-items {
+  flex: 1;
+  border: solid blue;
+}
+.dashboard-sidebar {
+  width: 300px;
+  border: solid green;
+  height: 100vh;
+}
+.dashboard-title {
+  padding-bottom: 20px;
+}
+.rentedItems {
+  border: solid orange;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+.rentedItems img {
+  widows: 100px;
+}
+.rented-title {
+  font-size: 1.6rem;
+  justify-self: flex-start;
+  border: solid blue;
+  width: 100%;
+  margin: 0 10px;
+}
+.rentedAvatar {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  margin: 0 10px;
 }

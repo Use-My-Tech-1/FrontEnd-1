@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IoIosShareAlt } from "react-icons/io";
+import { UserContext } from "../context/userContext";
 
-function ItemCard() {
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { Link } from "react-router-dom";
+
+function ItemCard(props) {
+  const { userData } = useContext(UserContext);
+
+  const fakeuserID = 1;
   // const deleteItem = async () => {
   //   try {
   //     const toDelete = await axiosWithAuth.delete(`https://api`, id);
@@ -10,6 +17,25 @@ function ItemCard() {
   //     console.log(error);
   //   }
   // };
+
+  const editInformation = () => {
+    if (userData.owner && fakeuserID === props.location.state.id) {
+      return (
+        <div className="item-card-update-items">
+          <Link
+            to={{
+              pathname: "/dashboard",
+              state: userData.userId,
+            }}
+          >
+            <button className="item-card-edit-btn">Edit</button>
+          </Link>
+
+          <button className="item-card-delete-btn">Delete</button>
+        </div>
+      );
+    }
+  };
 
   return (
     <>
@@ -76,6 +102,7 @@ function ItemCard() {
                       />
                       <p>Learn more</p>
                     </div>
+                    {editInformation()}
                   </div>
                 </div>
               </div>

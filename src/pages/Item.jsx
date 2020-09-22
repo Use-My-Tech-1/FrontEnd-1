@@ -36,7 +36,14 @@ function Item({ data }) {
           <p>{SmallerPreview(data.description, 50)}...</p>
           <div className="items-buttons">
             <button className="item-rent-btn">
-              <Link to={`/item/${data.id}`}>Rent Now</Link>
+              <Link
+                to={{
+                  pathname: `/item/${data.id}`,
+                  state: data,
+                }}
+              >
+                Rent Now
+              </Link>
             </button>
           </div>
         </div>

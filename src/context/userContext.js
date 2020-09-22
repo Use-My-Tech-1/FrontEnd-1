@@ -9,6 +9,8 @@ export const UserProvider = (props) => {
     error: "",
     user: {},
     data: [],
+    owner: false,
+    userId: "",
   });
 
   return (
