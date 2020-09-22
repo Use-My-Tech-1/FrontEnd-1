@@ -4,19 +4,19 @@ import axios from "axios";
 import {useHistory} from 'react-router-dom';
 
 const formSchema = yup.object().shape({
-  fullName: yup.string().required("Name is a required field")
-        .min(2, "Name must be at least 2 characters long.")
-        .matches(/[a-zA-z][a-zA-Z]{2,}/, "Name must be letters only."),
+  // fullName: yup.string().required("Name is a required field")
+  //       .min(2, "Name must be at least 2 characters long.")
+  //       .matches(/[a-zA-z][a-zA-Z]{2,}/, "Name must be letters only."),
     email: yup
       .string()
       .email("Must be a valid email address")
       .required("Must include email address"),
     // phone: yup.string().matches(/^\d{10}$/, 'is not valid'),
-    address: yup.string().required("Please leave an address."),
-    city: yup.string().required(),
-    state: yup.string().required(),
-    zipcode: yup.string().required(),
-    accountType: yup.string().required(),
+    // address: yup.string().required("Please leave an address."),
+    // city: yup.string().required(),
+    // state: yup.string().required(),
+    // zipcode: yup.string().required(),
+    owner: yup.boolean().required(),
     username: yup.string().required(),
     password: yup.string().required("Password is required"),
     confirmPassword: yup.string()
@@ -50,14 +50,14 @@ const SignUpForm = () => {
   
     const [errorState, setErrorState] = useState(defaultState);
   
-    console.log("Error state", errorState)
+    // console.log("Error state", errorState)
   
     // onChange function
     const inputChange = e => {
       e.persist();
       // console.log("input changed!", e.target.value, e.target.checked);
       const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-      console.log('checked', e);
+      // console.log('checked', e);
       setFormState({
         ...formState, [e.target.name] : value
       })
@@ -74,7 +74,7 @@ const SignUpForm = () => {
       e.preventDefault();
       console.log("form submitted!");
       axios
-        .post("https://use-tech.herokuapp.com/api/auth/register", formState, {withCredentials: true})
+        .post("https://use-tech.herokuapp.com/api/auth/register", formState)
         .then((response) => {
           console.log(response);
           // setPostedData(response.data);
@@ -105,11 +105,11 @@ const SignUpForm = () => {
         .validate(value)
         .then(valid => {
           setErrorState({...errorState, [e.target.name]: ""});
-          console.log('THEN', e.target.name);
+          // console.log('THEN', e.target.name);
         })
         .catch(err => {
           setErrorState({...errorState, [e.target.name]: err.errors[0]});
-          console.log('ERROR', err.errors[0]);
+          // console.log('ERROR', err.errors[0]);
 
         });
     };
