@@ -2,6 +2,15 @@ import React from "react";
 import { IoIosShareAlt } from "react-icons/io";
 
 function ItemCard() {
+  // const deleteItem = async () => {
+  //   try {
+  //     const toDelete = await axiosWithAuth.delete(`https://api`, id);
+  //     const response = toDelete.data;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   return (
     <>
       <div className="centerWrapper">

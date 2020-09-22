@@ -346,6 +346,10 @@ input.upload {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
 }
+.welcome--name {
+  padding-bottom: 2.5rem;
+  color: #6b6a6a;
+}
 .item-heading {
   display: flex;
   background-color: white;
