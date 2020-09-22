@@ -9,6 +9,7 @@ import Error404 from "./pages/Error404";
 import PrivateRoute from "./routes/PrivateRoute";
 import OwnersRoute from "./routes/PrivateRoute";
 import Dashboard from "./pages/Owners/Dashboard";
+import EditDetails from "./pages/Owners//EditDetails";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <PrivateRoute path="/item/:id" component={ItemCard} />
           <Route path="/login" component={Login} />
           <OwnersRoute exact path="/dashboard" component={Dashboard} />
+          <OwnersRoute exact path="/dashboard/edit" component={EditDetails} />
           <Route exact path="/" component={ItemGallery} />
           <Route exact path="*" component={Error404} />
         </Switch>
