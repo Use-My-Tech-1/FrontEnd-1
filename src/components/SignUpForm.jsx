@@ -199,22 +199,21 @@ const SignUpForm = () => {
       <label className="accountType" htmlFor="accountType">
           <p>
           <input 
-              type="radio"
-              name="accountType"
+              type="checkbox"
+              name="owner"
               id="owner"
               value='true'
               onChange={inputChange}
-          />Owner
+          />Owner: Check only if you want to list items
           </p>
-          <p>
-          <input
-              defaultChecked="false" 
+          {/* <p> */}
+          {/* <input 
               type="radio"
               name="accountType"
               id="renter"
               value='false'
               onChange={inputChange}
-          />Renter</p>
+          />Renter</p> */}
       </label>
       </div>
 
