@@ -1,15 +1,60 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IoIosShareAlt } from "react-icons/io";
+import { UserContext } from "../context/userContext";
 
-function ItemCard() {
-  // const deleteItem = async () => {
-  //   try {
-  //     const toDelete = await axiosWithAuth.delete(`https://api`, id);
-  //     const response = toDelete.data;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { Link, useHistory } from "react-router-dom";
+
+function ItemCard(props) {
+  const { userData } = useContext(UserContext);
+  const history = useHistory();
+
+  const deleteItem = async () => {
+    try {
+      const toDelete = await axiosWithAuth().delete(
+        `/api/owner/items/${props.match.params.id}`
+      );
+      const response = toDelete.data;
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    history.push("/");
+  };
+
+  const rentItem = async () => {
+    try {
+      const toRent = await axiosWithAuth().post(
+        `/api/renter/items/${props.match.params.id}`
+      );
+      const response = toRent.data;
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    history.push("/dashboard");
+  };
+
+  const editInformation = () => {
+    if (userData.owner && userData.userId === props.location.state.owner_id) {
+      return (
+        <div className="item-card-update-items">
+          <Link
+            to={{
+              pathname: "/dashboard",
+              state: userData.userId,
+            }}
+          >
+            <button className="item-card-edit-btn">Edit</button>
+          </Link>
+
+          <button onClick={deleteItem} className="item-card-delete-btn">
+            Delete
+          </button>
+        </div>
+      );
+    }
+  };
 
   return (
     <>
@@ -21,7 +66,9 @@ function ItemCard() {
               <IoIosShareAlt className="item-share-icon" />
               Share
             </button>
-            <button className="item-rent-btn">Rent Now</button>
+            <button onClick={rentItem} className="item-rent-btn">
+              Rent Now
+            </button>
           </div>
         </div>
         <div className="item-content">
@@ -76,6 +123,7 @@ function ItemCard() {
                       />
                       <p>Learn more</p>
                     </div>
+                    {editInformation()}
                   </div>
                 </div>
               </div>
