@@ -3,7 +3,6 @@ import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 
 function Header() {
-
   const { userData, setUserData } = useContext(UserContext);
   const history = useHistory();
 
@@ -36,6 +35,5 @@ function Header() {
     </nav>
   );
 }
-
 
 export default Header;

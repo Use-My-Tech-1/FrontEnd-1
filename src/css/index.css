@@ -208,6 +208,7 @@ nav {
   position: fixed;
   overflow: hidden;
   background-color: #7dbae6;
+  z-index: 1;
 }
 .nav-links {
   padding-right: 24px;
@@ -221,7 +222,7 @@ nav {
   margin-right: 8px;
 }
 .pageHeader {
-  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
   color: white;
   padding-left: 24px;
 }

@@ -19,8 +19,8 @@ function App() {
       <Header />
       <div className="mainbody">
         <Switch>
-
           <Route path="/signup" component={SignUpForm} />
+          <PrivateRoute path="/add-tech-item" component={CreateTechItem} />
           <PrivateRoute path="/item/:id" component={ItemCard} />
           <Route path="/login" component={Login} />
           <OwnersRoute exact path="/dashboard" component={Dashboard} />
