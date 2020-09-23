@@ -4,17 +4,17 @@ import axios from "axios";
 import {useHistory} from 'react-router-dom';
 
 const formSchema = yup.object().shape({
-  // fullName: yup.string().required("Name is a required field")
-  //       .min(2, "Name must be at least 2 characters long.")
-  //       .matches(/[a-zA-z][a-zA-Z]{2,}/, "Name must be letters only."),
+  fullName: yup.string().required("Name is a required field")
+        .min(2, "Name must be at least 2 characters long.")
+        .matches(/[a-zA-z][a-zA-Z]{2,}/, "Name must be letters only."),
     email: yup
       .string()
       .email("Must be a valid email address")
       .required("Must include email address"),
     // phone: yup.string().matches(/^\d{10}$/, 'is not valid'),
-    // address: yup.string().required("Please leave an address."),
-    // city: yup.string().required(),
-    // state: yup.string().required(),
+    address: yup.string().required("Please leave an address."),
+    city: yup.string().required(),
+    state: yup.string().required(),
     // zipcode: yup.string().required(),
     owner: yup.boolean().required(),
     username: yup.string().required(),
@@ -32,12 +32,12 @@ const SignUpForm = () => {
     let history = useHistory();
 
     const defaultState ={
-      // fullName: "",
+      fullName: "",
       email: "",
       // phone: "5083647706",
-      // address: "",
-      // city: "",
-      // state:"",
+      address: "",
+      city: "",
+      state:"",
       // zipcode: "",
       owner: false,
       username: "",
@@ -120,7 +120,7 @@ const SignUpForm = () => {
 <div className="formContainer">
   <form onSubmit={formSubmit}>
   
-  {/* <label htmlFor="fullName">
+  <label htmlFor="fullName">
           <h4>Name</h4>
           <input
             placeholder="Full Name"
@@ -133,7 +133,7 @@ const SignUpForm = () => {
            {errorState.fullName.length > 2 ? (
             <p className="error">{errorState.fullName}</p>
           ) : null}
-  </label> */}
+  </label>
   <label htmlFor="email">
           <h4>Email</h4>
    </label>        
@@ -153,13 +153,13 @@ const SignUpForm = () => {
   {/* <label htmlFor="phone">Enter your phone number:</label>
 <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"></input> */}
   
-  {/* <label htmlFor="address"><h4>Address</h4>
+  <label htmlFor="address"><h4>Address</h4>
           {errorState.address.length > 0 ? <p>{errorState.address}</p> : null}
   
           <input type="address" name="address" placeholder="Your Address Here" value={formState.address} onChange={inputChange} />
-  </label> */}
+  </label> 
 
-  {/* <label htmlFor="city">
+  <label htmlFor="city">
           <h4>City</h4>
    </label>        
         <input
@@ -168,9 +168,9 @@ const SignUpForm = () => {
             id="city"
             value={formState.city}
             onChange={inputChange}
-          /> */}
+          />
 
-    {/* <label htmlFor="state">
+    <label htmlFor="state">
           <h4>State</h4>
    </label>        
         <input
@@ -179,33 +179,34 @@ const SignUpForm = () => {
             id="state"
             value={formState.state}
             onChange={inputChange}
-          /> */}
+          />
 
-    {/* <label htmlFor="zipcode">
-          <h4>Zip Code</h4>
-   </label>        
-        <input
-            type="zipcode"
-            name="zipcode"
-            id="zipcode"
-            value={formState.zipcode}
-            onChange={inputChange}
-          /> */}
+     {/* <label htmlFor="zipcode">
+  //         <h4>Zip Code</h4>
+  //  </label>        
+  //       <input
+  //           type="zipcode"
+  //           name="zipcode"
+  //           id="zipcode"
+  //           value={formState.zipcode}
+  //           onChange={inputChange}
+  //         /> */}
     
 
 
       <div className="sauceCard">
-      <h4 id="accountType">Account Type:</h4>
+      {/* <h4 id="accountType">Account Type:</h4> */}
       <label className="accountType" htmlFor="accountType">
-          <p>
           <input 
               type="checkbox"
               name="owner"
               id="owner"
               value='true'
               onChange={inputChange}
-          />Owner: Check only if you want to list items
-          </p>
+              />
+              <p> <br/>
+              Owner: Check only if you want to list items
+              </p>
           {/* <p> */}
           {/* <input 
               type="radio"
@@ -257,7 +258,7 @@ const SignUpForm = () => {
           checked={formState.terms}
           onChange={inputChange}
           
-        />
+        /> <br/>
         Terms and Conditions
         {errorState.terms.length > 0 ? (
           <p className="error">{errorState.terms}</p>
@@ -270,7 +271,7 @@ const SignUpForm = () => {
         <button disabled={buttonDisabled} type="submit">Create Account</button>
       </form>
       </div>
-      <pre>{JSON.stringify(postedData, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(postedData, null, 2)}</pre> */}
       </>
       )
   }
