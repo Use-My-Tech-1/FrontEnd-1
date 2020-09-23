@@ -17,7 +17,7 @@ function Login(props) {
   const [errors, setErrors] = useState({ ...defaultState });
   const [login, setLogin] = useState(defaultState);
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const user = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
 
   let formSchema = yup.object().shape({
     username: yup
@@ -27,7 +27,7 @@ function Login(props) {
     password: yup
       .string()
       .required("Password is required")
-      .min(8, "Password must be 8 characters"),
+      .min(5, "Password must be 5 characters"),
   });
 
   useEffect(() => {
@@ -38,26 +38,30 @@ function Login(props) {
     }
   }, [login]);
 
-  console.log(user);
+  console.log("login", userData);
   const loginSubmit = (e) => {
     e.preventDefault();
     axiosWithAuth()
-      .post("auth/login", login, { withCredentials: true })
+      .post("/api/auth/login", login)
       .then((res) => {
         console.log(res);
-        localStorage.setItem("token", "12345");
-        props.setLoggedIn(true);
-        user.setUserData({
-          token: 23,
-          user: {
-            name: "John Doe",
-          },
+        localStorage.setItem("token", res.data.token);
+        setUserData({
+          ...userData,
+          message: res.data.message,
+          token: res.data.token,
+          owner: res.data.owner,
+          userId: res.data.id,
         });
 
-        history.push("/tech-items");
+        history.push("/");
       })
       .catch((err) => {
         console.log("invalid login", err);
+        setUserData({
+          ...userData,
+          error: err,
+        });
       });
   };
 
@@ -85,8 +89,6 @@ function Login(props) {
       ...login,
       [e.target.name]: e.target.value,
     });
-    console.log(login);
-    // validateChange(e);
   };
 
   return (
