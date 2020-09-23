@@ -61,7 +61,7 @@ function CreateTechItem(props) {
             .required('Please add a description')
             .max(100, "Maximum of 50 characters for description"),
         price: yup
-            .string()
+            .number()
             .required('Price in $ is required'),
         city: yup
             .string()
@@ -149,7 +149,7 @@ function CreateTechItem(props) {
                     errors={errors}
                     />
                 <Input
-                    type="decimal"
+                    type="number"
                     name="price"
                     onChange={inputChange}
                     value={formState.price}
