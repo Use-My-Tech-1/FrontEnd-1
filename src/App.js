@@ -1,38 +1,36 @@
-import React, {useState} from 'react'
-import Header from './components/Header'
-import Login from './components/Login'
-import {Route, Switch} from 'react-router-dom'
-import ItemGallery from './pages/ItemGallery'
-import SignUpForm from './components/SignUpForm'
-import ItemCard from './pages/ItemCard'
-import Error404 from './pages/Error404'
-import PrivateRoute from './routes/PrivateRoute'
-import CreateTechItem from './components/CreateTechItem'
+import React from "react";
+import Header from "./components/Header";
+import Login from "./components/Login";
+import { Route, Switch } from "react-router-dom";
+import ItemGallery from "./pages/ItemGallery";
+import SignUpForm from "./components/SignUpForm";
+import ItemCard from "./pages/ItemCard";
+import Error404 from "./pages/Error404";
+import PrivateRoute from "./routes/PrivateRoute";
+import OwnersRoute from "./routes/PrivateRoute";
+import Dashboard from "./pages/Owners/Dashboard";
+import EditDetails from "./pages/Owners//EditDetails";
+
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
-
   return (
-    <div className='container'>
+    <div className="container">
       <Header />
-      <div className='mainbody'>
+      <div className="mainbody">
         <Switch>
-          <Route path='/signup' component={SignUpForm} />
-          <Route path='/item/:id'>
-            <ItemCard />
-          </Route>
-          <Route path='/login'>
-            <Login setLoggedIn={setLoggedIn} />
-          </Route>
-          <PrivateRoute exact path='/' component={ItemGallery} />
-          <Route path='/add-tech-item'>
-            <CreateTechItem/>
-          </Route>
-          <Route exact path='*' component={Error404} />
+
+          <Route path="/signup" component={SignUpForm} />
+          <PrivateRoute path="/item/:id" component={ItemCard} />
+          <Route path="/login" component={Login} />
+          <OwnersRoute exact path="/dashboard" component={Dashboard} />
+          <OwnersRoute exact path="/dashboard/edit" component={EditDetails} />
+          <Route exact path="/" component={ItemGallery} />
+          <Route exact path="*" component={Error404} />
+
         </Switch>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
