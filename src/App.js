@@ -11,12 +11,14 @@ import OwnersRoute from "./routes/PrivateRoute";
 import Dashboard from "./pages/Owners/Dashboard";
 import EditDetails from "./pages/Owners//EditDetails";
 
+
 function App() {
   return (
     <div className="container">
       <Header />
       <div className="mainbody">
         <Switch>
+
           <Route path="/signup" component={SignUpForm} />
           <PrivateRoute path="/item/:id" component={ItemCard} />
           <Route path="/login" component={Login} />
@@ -24,6 +26,7 @@ function App() {
           <OwnersRoute exact path="/dashboard/edit" component={EditDetails} />
           <Route exact path="/" component={ItemGallery} />
           <Route exact path="*" component={Error404} />
+
         </Switch>
       </div>
     </div>
