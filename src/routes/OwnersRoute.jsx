@@ -1,18 +1,23 @@
-import React, { useContext } from "react";
-import { Route, Redirect } from "react-router-dom";
-import { UserContext } from "../context/userContext";
+import React, {useContext} from 'react'
+import {Route, Redirect} from 'react-router-dom'
+import {UserContext} from '../context/userContext'
+import Dashboard from '../pages/Owners/Dashboard'
 
-const OwnersRoute = ({ component: Component, ...rest }) => {
-  const authToken = localStorage.getItem("token");
-  const { userData } = useContext(UserContext);
+const OwnersRoute = ({component: Component, ...rest}) => {
+  const authToken = localStorage.getItem('token')
+  const {userData} = useContext(UserContext)
   return (
     <Route
       {...rest}
       render={(props) =>
-        authToken && userData.owner ? <h1>onwers</h1> : <Redirect to="/login" />
+        authToken && userData.owner ? (
+          <Dashboard {...props} />
+        ) : (
+          <Redirect to='/' />
+        )
       }
     />
-  );
-};
+  )
+}
 
-export default OwnersRoute;
+export default OwnersRoute
