@@ -12,6 +12,7 @@ import Dashboard from "./pages/Owners/Dashboard";
 import EditDetails from "./pages/Owners//EditDetails";
 import CreateTechItem from "./components/CreateTechItem";
 
+
 function App() {
   return (
     <div className="container">
@@ -25,6 +26,9 @@ function App() {
           <OwnersRoute exact path="/dashboard" component={Dashboard} />
           <OwnersRoute exact path="/dashboard/edit" component={EditDetails} />
           <Route exact path="/" component={ItemGallery} />
+          <PrivateRoute path='/add-tech-item' component={CreateTechItem}/>
+            {/* <CreateTechItem/>
+          </Route> */}
           <Route exact path="*" component={Error404} />
         </Switch>
       </div>

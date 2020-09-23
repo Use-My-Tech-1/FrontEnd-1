@@ -4,6 +4,8 @@ import Input from './Input';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 
+import {axiosWithAuth} from '../utils/axiosWithAuth';
+
 // react 2
 //import { axiosWithAuth } from '../utils/axiosWithAuth';
 
@@ -42,7 +44,7 @@ function CreateTechItem(props) {
         rentalTerm: 'Weekly',
         available: true,
         owner: true,
-        imageUrl: ""
+        imageUrl: "https://cdnm2-kraftmusic.netdna-ssl.com/media/catalog/product//y/a/yam-p125b_ipad.jpg",
     };
 
     const [formState, setFormState] = useState(defaultState);
@@ -59,7 +61,7 @@ function CreateTechItem(props) {
             .required('Please add a description')
             .max(100, "Maximum of 50 characters for description"),
         price: yup
-            .string()
+            .number()
             .required('Price in $ is required'),
         city: yup
             .string()
@@ -74,10 +76,10 @@ function CreateTechItem(props) {
 
     //State set for the add button to be enabled or disabled
     useEffect(() => {
-        if (formState.itemName && formState.description && formState.startingPrice) {
+        if (formState.itemName && formState.description && formState.price) {
             setButtonDisabled(false);
         }
-        else if (!formState.itemName || !formState.description || !formState.startingPrice) {
+        else if (!formState.itemName || !formState.description || !formState.price) {
             setButtonDisabled(true);
         }
         return () => console.log("The Effect Hook has been cleaned up.");
@@ -86,12 +88,13 @@ function CreateTechItem(props) {
     const formSubmit = e => {
         e.preventDefault();
         console.log('Form submitted');
-        axios
-            ({ method: "POST", url: 'https://api', data: formState, withCredentials: true })
+        axiosWithAuth()
+            // ({ method: "POST", url: 'https://use-tech.herokuapp.com/api/owner/items', data: formState, withCredentials: true })
+            .post('api/owner/items', formState)
             .then((res) => {console.log('form submit success', res)
-                setAuctions([...auctions, res.data])})
+                setAuctions([...formState, res.data])})
             .catch(err => console.log('Form submission error', err));
-            history.push("/auctions");
+            history.push("/");
     };
 
     const inputChange = e => {
@@ -124,10 +127,10 @@ function CreateTechItem(props) {
             <form onSubmit={formSubmit}>
                 <div className="RadioContainer">
                     <label>Weekly</label>
-                    <input defaultChecked="Weekly" type='radio' name='type' onChange={inputChange} value='weekly' />
+                    <input defaultChecked="Weekly" type='radio' name='rentalTerm' onChange={inputChange} value='weekly' />
 
                     <label>Monthly</label>
-                    <input type='radio' name='type' onChange={inputChange} value='monthly' />
+                    <input type='radio' name='rentalTerm' onChange={inputChange} value='monthly' />
                 </div>
                 <Input
                     type="text"
@@ -146,7 +149,7 @@ function CreateTechItem(props) {
                     errors={errors}
                     />
                 <Input
-                    type="decimal"
+                    type="number"
                     name="price"
                     onChange={inputChange}
                     value={formState.price}
