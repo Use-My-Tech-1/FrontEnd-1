@@ -1,119 +1,118 @@
-import React, { useState, useEffect, useContext } from "react";
-import * as yup from "yup";
-import Input from "./Input";
+import React, {useState, useEffect, useContext} from 'react'
+import * as yup from 'yup'
+import Input from './Input'
 
-import { axiosWithAuth } from "../utils/axiosWithAuth";
-import { useHistory } from "react-router-dom";
-import { UserContext } from "../context/userContext";
+import {axiosWithAuth} from '../utils/axiosWithAuth'
+import {useHistory} from 'react-router-dom'
+import {UserContext} from '../context/userContext'
+import {loginHelper} from '../utils'
 
 function Login(props) {
-  let history = useHistory();
+  let history = useHistory()
 
   const defaultState = {
-    username: "",
-    password: "",
-  };
+    username: '',
+    password: '',
+  }
 
-  const [errors, setErrors] = useState({ ...defaultState });
-  const [login, setLogin] = useState(defaultState);
-  const [buttonDisabled, setButtonDisabled] = useState(true);
-  const { userData, setUserData } = useContext(UserContext);
+  const [errors, setErrors] = useState({...defaultState})
+  const [login, setLogin] = useState(defaultState)
+  const [buttonDisabled, setButtonDisabled] = useState(true)
+  const {userData, setUserData} = useContext(UserContext)
 
   let formSchema = yup.object().shape({
     username: yup
       .string()
-      .required("Username is required")
-      .min(8, "Username must be 8 characters"),
+      .required('Username is required')
+      .min(8, 'Username must be 8 characters'),
     password: yup
       .string()
-      .required("Password is required")
-      .min(5, "Password must be 5 characters"),
-  });
+      .required('Password is required')
+      .min(5, 'Password must be 5 characters'),
+  })
 
   useEffect(() => {
     if (login.username && login.password) {
-      setButtonDisabled(false);
+      setButtonDisabled(false)
     } else if (!login.username || !login.password) {
-      setButtonDisabled(true);
+      setButtonDisabled(true)
     }
-  }, [login]);
+  }, [login])
 
-  console.log("login", userData);
   const loginSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     axiosWithAuth()
-      .post("/api/auth/login", login)
+      .post('/api/auth/login', login)
       .then((res) => {
-        console.log(res);
-        localStorage.setItem("token", res.data.token);
+        loginHelper(res.data.token)
         setUserData({
           ...userData,
           message: res.data.message,
           token: res.data.token,
           owner: res.data.owner,
           userId: res.data.id,
-        });
+        })
 
-        history.push("/");
+        history.push('/')
       })
       .catch((err) => {
-        console.log("invalid login", err);
+        console.log('invalid login', err)
         setUserData({
           ...userData,
           error: err,
-        });
-      });
-  };
+        })
+      })
+  }
 
   //onChange function, put validation within function
   const inputChange = (e) => {
-    e.persist();
-    let value = e.target.value;
+    e.persist()
+    let value = e.target.value
     yup
       .reach(formSchema, e.target.name)
       .validate(value)
       .then((valid) => {
         setErrors({
           ...errors,
-          [e.target.name]: "",
-        });
+          [e.target.name]: '',
+        })
       })
       .catch((err) => {
         setErrors({
           ...errors,
           [e.target.name]: err.errors[0],
-        });
-      });
+        })
+      })
     //spread accross loginState and set to value of input.
     setLogin({
       ...login,
       [e.target.name]: e.target.value,
-    });
-  };
+    })
+  }
 
   return (
-    <div className="formContainer">
+    <div className='formContainer'>
       <form onSubmit={loginSubmit}>
         <Input
-          type="text"
-          name="username"
+          type='text'
+          name='username'
           onChange={inputChange}
           value={login.username}
-          label="User Name"
+          label='User Name'
           errors={errors}
         />
         <Input
-          type="password"
-          name="password"
+          type='password'
+          name='password'
           onChange={inputChange}
           value={login.password}
-          label="Password"
+          label='Password'
           errors={errors}
         />
         <button disabled={buttonDisabled}>Login</button>
       </form>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login
