@@ -1,7 +1,9 @@
 import React from "react";
+import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
 function RentedItems({ data }) {
-  const handleRentedChanges = () => {};
+  console.log("sidebar", data);
+  const handleRentedChanges = (e) => {};
   return (
     <div className="rentedItems">
       <img className="rentedAvatar" src={data.imageUrl} alt={data.name} />

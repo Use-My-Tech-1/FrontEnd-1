@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function MyItems({ data }) {
   return (
-    <div className="myitems">
+    <div>
       <Link
         className="myitems"
         to={{
@@ -13,8 +13,11 @@ function MyItems({ data }) {
         }}
       >
         <img className="myItems-avatar-image" src={data.imageUrl} alt="" />
-        <h3 className="myiteims-tittle">{data.itemName}</h3>
-        <h3 className="myiteims-tittle">${data.price}</h3>
+        <div>
+          <h3 className="myiteims-tittle">{data.itemName}</h3>
+
+          <h4 className="myiteims-tittle">${data.price}</h4>
+        </div>
       </Link>
     </div>
   );

@@ -3,23 +3,40 @@ import { IoIosShareAlt } from "react-icons/io";
 import { UserContext } from "../context/userContext";
 
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function ItemCard(props) {
   const { userData } = useContext(UserContext);
+  const history = useHistory();
 
-  const fakeuserID = 1;
-  // const deleteItem = async () => {
-  //   try {
-  //     const toDelete = await axiosWithAuth.delete(`https://api`, id);
-  //     const response = toDelete.data;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const deleteItem = async () => {
+    try {
+      const toDelete = await axiosWithAuth().delete(
+        `/api/owner/items/${props.match.params.id}`
+      );
+      const response = toDelete.data;
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    history.push("/");
+  };
+
+  const rentItem = async () => {
+    try {
+      const toRent = await axiosWithAuth().post(
+        `/api/renter/items/${props.match.params.id}`
+      );
+      const response = toRent.data;
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    history.push("/dashboard");
+  };
 
   const editInformation = () => {
-    if (userData.owner && fakeuserID === props.location.state.id) {
+    if (userData.owner && userData.userId === props.location.state.owner_id) {
       return (
         <div className="item-card-update-items">
           <Link
@@ -31,7 +48,9 @@ function ItemCard(props) {
             <button className="item-card-edit-btn">Edit</button>
           </Link>
 
-          <button className="item-card-delete-btn">Delete</button>
+          <button onClick={deleteItem} className="item-card-delete-btn">
+            Delete
+          </button>
         </div>
       );
     }
@@ -47,7 +66,9 @@ function ItemCard(props) {
               <IoIosShareAlt className="item-share-icon" />
               Share
             </button>
-            <button className="item-rent-btn">Rent Now</button>
+            <button onClick={rentItem} className="item-rent-btn">
+              Rent Now
+            </button>
           </div>
         </div>
         <div className="item-content">

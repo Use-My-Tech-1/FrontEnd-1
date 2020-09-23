@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import RentedItems from "./RentedItems";
 import { dummyData } from "../../dummyData";
 import MyItems from "./MyItems";
+import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
 function Dashboard(props) {
-  const filterItems = dummyData.filter(
-    (item) => item.owner_id === props.location.state
-  );
+  const [myItems, setMyItems] = React.useState();
+  useEffect(() => {
+    axiosWithAuth()
+      .get("api/owner/items")
+      .then((res) => setMyItems(res.data));
+  }, []);
 
-  const itemsAvailable = dummyData.filter(
+  const itemsAvailable = myItems?.filter(
     (item) => item.owner_id === props.location.state && item.available === false
   );
 
@@ -20,13 +24,13 @@ function Dashboard(props) {
         </div>
         <div className="dashboard">
           <div className="dashboard-items">
-            {filterItems.map((item) => (
+            {myItems?.map((item) => (
               <MyItems key={item.id} data={item} />
             ))}
           </div>
           <div className="dashboard-sidebar">
             <h2>Rented Items</h2>
-            {itemsAvailable.map((item) => (
+            {itemsAvailable?.map((item) => (
               <RentedItems key={item.id} data={item} />
             ))}
           </div>

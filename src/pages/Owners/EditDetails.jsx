@@ -1,7 +1,10 @@
 import React from "react";
-
+import { axiosWithAuth } from "../../utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
 function EditDetails(props) {
   const data = props.location.state;
+  const history = useHistory();
+
   const initalState = {
     itemName: data.itemName,
     price: data.price,
@@ -17,7 +20,11 @@ function EditDetails(props) {
   };
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(formValue);
+    axiosWithAuth()
+      .put(`/api/owner/items/${data.id}`, formValue)
+      .then((res) => console.log("Edit an Items", res.data));
+
+    history.goBack();
   };
 
   console.log(formValue);
