@@ -1,9 +1,7 @@
-//without Formik
-
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
-import FormField from "./FormField"
+import {useHistory} from 'react-router-dom';
 
 const formSchema = yup.object().shape({
   fullName: yup.string().required("Name is a required field")
@@ -17,16 +15,12 @@ const formSchema = yup.object().shape({
     address: yup.string().required("Please leave an address."),
     city: yup.string().required(),
     state: yup.string().required(),
-    zipcode: yup.string().required(),
-    accountType: yup.string().required(),
+    // zipcode: yup.string().required(),
+    owner: yup.boolean().required(),
     username: yup.string().required(),
     password: yup.string().required("Password is required"),
     confirmPassword: yup.string()
-        .required("Please confirm your password")
-        .when("password", {
-      is: password => (password && password.length > 0 ? true : false),
-      then: yup.string().oneOf([yup.ref("password")], "Password doesn't match")
-    }),
+       .oneOf([yup.ref('password'), null], 'Passwords must match'),
     terms: yup.boolean().oneOf([true], "Please agree to terms of use")
 });
 
@@ -34,6 +28,8 @@ console.log(formSchema);
 
 const SignUpForm = () => {
     // managing state for our form inputs
+    
+    let history = useHistory();
 
     const defaultState ={
       fullName: "",
@@ -42,8 +38,8 @@ const SignUpForm = () => {
       address: "",
       city: "",
       state:"",
-      zipcode: "",
-      accountType: '',
+      // zipcode: "",
+      owner: false,
       username: "",
       password: "",
       confirmPassword: "",
@@ -54,14 +50,14 @@ const SignUpForm = () => {
   
     const [errorState, setErrorState] = useState(defaultState);
   
-    console.log("Error state", errorState)
+    // console.log("Error state", errorState)
   
     // onChange function
     const inputChange = e => {
       e.persist();
       // console.log("input changed!", e.target.value, e.target.checked);
       const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-      console.log('checked', e);
+      // console.log('checked', e);
       setFormState({
         ...formState, [e.target.name] : value
       })
@@ -77,13 +73,12 @@ const SignUpForm = () => {
     const formSubmit = e => {
       e.preventDefault();
       console.log("form submitted!");
- 
-
       axios
-        .post("https://reqres.in/api/users", formState)
+        .post("https://use-tech.herokuapp.com/api/auth/register", formState)
         .then((response) => {
-          setPostedData(response.data);
-  
+          console.log(response);
+          // setPostedData(response.data);
+          history.push('/login');
       })
         .catch(err => console.log(err));
   
@@ -110,11 +105,11 @@ const SignUpForm = () => {
         .validate(value)
         .then(valid => {
           setErrorState({...errorState, [e.target.name]: ""});
-          console.log('THEN', e.target.name);
+          // console.log('THEN', e.target.name);
         })
         .catch(err => {
           setErrorState({...errorState, [e.target.name]: err.errors[0]});
-          console.log('ERROR', err.errors[0]);
+          // console.log('ERROR', err.errors[0]);
 
         });
     };
@@ -125,10 +120,9 @@ const SignUpForm = () => {
 <div className="formContainer">
   <form onSubmit={formSubmit}>
   
-  <div className="fullName">
   <label htmlFor="fullName">
           <h4>Name</h4>
-          <FormField
+          <input
             placeholder="Full Name"
             type="text"
             name="fullName"
@@ -140,9 +134,6 @@ const SignUpForm = () => {
             <p className="error">{errorState.fullName}</p>
           ) : null}
   </label>
-  </div>
-
-  <div className="email">
   <label htmlFor="email">
           <h4>Email</h4>
    </label>        
@@ -157,19 +148,17 @@ const SignUpForm = () => {
           {errorState.email.length > 0 ? (
             <p className="error">{errorState.email}</p>
           ) : null}
- </div>
+ 
 
   {/* <label htmlFor="phone">Enter your phone number:</label>
 <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"></input> */}
-  <div className="address">
+  
   <label htmlFor="address"><h4>Address</h4>
           {errorState.address.length > 0 ? <p>{errorState.address}</p> : null}
   
           <input type="address" name="address" placeholder="Your Address Here" value={formState.address} onChange={inputChange} />
-  </label>
-</div>
+  </label> 
 
-<div className="city">
   <label htmlFor="city">
           <h4>City</h4>
    </label>        
@@ -180,9 +169,7 @@ const SignUpForm = () => {
             value={formState.city}
             onChange={inputChange}
           />
-</div>
 
-<div className="state">
     <label htmlFor="state">
           <h4>State</h4>
    </label>        
@@ -193,46 +180,44 @@ const SignUpForm = () => {
             value={formState.state}
             onChange={inputChange}
           />
-</div>
 
-<div className="zipcode">
-    <label htmlFor="zipcode">
-          <h4>Zip Code</h4>
-   </label>        
-        <input
-            type="zipcode"
-            name="zipcode"
-            id="zipcode"
-            value={formState.zipcode}
-            onChange={inputChange}
-          />
-</div>    
+     {/* <label htmlFor="zipcode">
+  //         <h4>Zip Code</h4>
+  //  </label>        
+  //       <input
+  //           type="zipcode"
+  //           name="zipcode"
+  //           id="zipcode"
+  //           value={formState.zipcode}
+  //           onChange={inputChange}
+  //         /> */}
+    
 
 
-      <div className="accountType">
-      <h4 id="accountType">Account Type:</h4>
+      <div className="sauceCard">
+      {/* <h4 id="accountType">Account Type:</h4> */}
       <label className="accountType" htmlFor="accountType">
-          <p>
           <input 
-              type="radio"
-              name="accountType"
+              type="checkbox"
+              name="owner"
               id="owner"
-              value='owner'
+              value='true'
               onChange={inputChange}
-          />Owner
-          </p>
-          <p>
-          <input 
+              />
+              <p> <br/>
+              Owner: Check only if you want to list items
+              </p>
+          {/* <p> */}
+          {/* <input 
               type="radio"
               name="accountType"
               id="renter"
-              value='renter'
+              value='false'
               onChange={inputChange}
-          />Renter</p>
+          />Renter</p> */}
       </label>
       </div>
 
-      <div className="username">
     <label htmlFor="username">
           <h4>Username</h4>
     </label>        
@@ -243,37 +228,28 @@ const SignUpForm = () => {
             value={formState.username}
             onChange={inputChange}
           />
-</div>
 
-<div className="password">
     <label htmlFor="password">
           <h4>Password</h4>
    </label>        
         <input
-            type="password"
+            type="text"
             name="password"
             id="password"
             value={formState.password}
             onChange={inputChange}
           />
-</div>
 
-<div className="confirmPassword">
     <label htmlFor="confirmPassword">
           <h4>Confirm Password</h4>
    </label>        
         <input
-            type="password"
+            type="text"
             name="confirmPassword"
             id="confirmPassword"
             value={formState.confirmPassword}
             onChange={inputChange}
-            errors={errorState}
           />
-        {errorState.confirmPassword.length > 0 ? <p>{errorState.confirmPassword}</p> : null}
-</div>
-
-<div className="terms">
   <label htmlFor="terms">
         <input
           type="checkbox"
@@ -282,25 +258,22 @@ const SignUpForm = () => {
           checked={formState.terms}
           onChange={inputChange}
           
-        />
+        /> <br/>
         Terms and Conditions
         {errorState.terms.length > 0 ? (
           <p className="error">{errorState.terms}</p>
         ) : null}
       </label>
-  </div>
+  
    
   
   
         <button disabled={buttonDisabled} type="submit">Create Account</button>
       </form>
       </div>
-      <pre>{JSON.stringify(postedData, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(postedData, null, 2)}</pre> */}
       </>
       )
   }
   
   export default SignUpForm;
-  
-  
-

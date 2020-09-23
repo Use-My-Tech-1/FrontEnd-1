@@ -10,6 +10,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import OwnersRoute from "./routes/PrivateRoute";
 import Dashboard from "./pages/Owners/Dashboard";
 import EditDetails from "./pages/Owners//EditDetails";
+import CreateTechItem from "./components/CreateTechItem";
 
 
 function App() {
@@ -18,19 +19,20 @@ function App() {
       <Header />
       <div className="mainbody">
         <Switch>
-
           <Route path="/signup" component={SignUpForm} />
+          <PrivateRoute path="/add-tech-item" component={CreateTechItem} />
           <PrivateRoute path="/item/:id" component={ItemCard} />
           <Route path="/login" component={Login} />
           <OwnersRoute exact path="/dashboard" component={Dashboard} />
           <OwnersRoute exact path="/dashboard/edit" component={EditDetails} />
           <Route exact path="/" component={ItemGallery} />
           <Route exact path="*" component={Error404} />
-
         </Switch>
       </div>
     </div>
   );
 }
-
 export default App;
+
+
+

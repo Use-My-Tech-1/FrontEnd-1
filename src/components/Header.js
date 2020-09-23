@@ -3,22 +3,6 @@ import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 
 function Header() {
-<<<<<<< HEAD
-    return (
-        <nav>
-        <h1 className="pageHeader">Rent My Tech</h1>
-        <div className='nav-links'>
-          <Link to="/">Home</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/tech-items">Tech2Rent</Link>
-          <Link to="/add-tech-item">Add-Tech-Item</Link>
-        </div>
-      </nav>
-    )
-};
-=======
->>>>>>> bb20f560667b32dc50a6cc854055494305e130d0
 
   const { userData, setUserData } = useContext(UserContext);
   const history = useHistory();
