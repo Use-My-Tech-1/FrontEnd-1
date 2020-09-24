@@ -3,8 +3,9 @@ import * as yup from 'yup';
 import Input from './Input';
 // import axios from 'axios';
 import { useHistory } from "react-router-dom";
-
+import UploadImage from './UploadImage';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
+// import UploadImage from '../../../../Unit-2-Build-week/Front-End/src/components/UploadImage';
 
 // react 2
 //import { axiosWithAuth } from '../utils/axiosWithAuth';
@@ -44,7 +45,7 @@ function CreateTechItem(props) {
         rentalTerm: 'Weekly',
         available: true,
         owner: true,
-        imageUrl: "https://cdnm2-kraftmusic.netdna-ssl.com/media/catalog/product//y/a/yam-p125b_ipad.jpg",
+        imageUrl: "",
     };
 
     const [formState, setFormState] = useState(defaultState);
@@ -172,6 +173,7 @@ function CreateTechItem(props) {
                     label="State"
                     errors={errors}
                     />
+                <UploadImage formState={formState} setFormState={setFormState} />
                 <button disabled={buttonDisabled}>Create Tech Item</button>
             </form>
         </div>
