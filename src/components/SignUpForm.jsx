@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import * as yup from 'yup'
 import axios from 'axios'
 import {useHistory} from 'react-router-dom'
-import Anime, {anime} from 'react-anime';
+import Anime from 'react-anime';
 import FormField from './FormField'
 
 const formSchema = yup.object().shape({
