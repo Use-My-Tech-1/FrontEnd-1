@@ -12,7 +12,6 @@ import Dashboard from "./pages/Owners/Dashboard";
 import EditDetails from "./pages/Owners//EditDetails";
 import CreateTechItem from "./components/CreateTechItem";
 
-
 function App() {
   return (
     <div className="container">

@@ -208,6 +208,7 @@ nav {
   position: fixed;
   overflow: hidden;
   background-color: #7dbae6;
+  z-index: 1;
 }
 .nav-links {
   padding-right: 24px;
@@ -221,7 +222,7 @@ nav {
   margin-right: 8px;
 }
 .pageHeader {
-  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
   color: white;
   padding-left: 24px;
 }
@@ -658,4 +659,58 @@ a:link {
 }
 .save-sidebar-btn {
   margin-top: 50px;
+}
+
+.signup-title{
+  text-align: center;
+  margin: auto;
+  margin-top: -15px;
+  margin-bottom: 35px;
+}
+
+.signupform{
+  background-color: #7dbae686;
+  width: 30%;
+  margin: auto;
+  padding: 5px;
+  border-radius: 2rem;
+  overflow-wrap: normal;
+
+}
+
+.signupform button{
+  margin: 2px auto;
+}
+
+.signupform label{
+  font-size: 1.6rem;
+}
+
+.signupform input[type="checkbox" i]{
+  width: 5%;
+  margin: 5px;
+}
+
+.signupform .accountType{
+  flex-direction: row;
+}
+
+.signupform .error{
+  font-size: 1.4rem;
+  color: rgb(245, 66, 66);
+  margin-top: 3px;
+}
+
+.signupform .p-span{
+  font-size: 1.2rem;
+  color:rgb(81, 53, 238);
+}
+
+.signupform .terms{
+  flex-direction: row;
+  
+}
+
+.signupform .terms input[type="checkbox" i]{
+  margin-top: 2.5px;
 }
