@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 import * as yup from 'yup'
 import axios from 'axios'
 import {useHistory} from 'react-router-dom'
+import Anime, {anime} from 'react-anime';
+import FormField from './FormField'
 
 const formSchema = yup.object().shape({
   fullName: yup
@@ -103,13 +105,18 @@ const SignUpForm = () => {
       })
   }
 
+
   return (
     <>
-      <div className='formContainer'>
+<Anime opacity={[0, 1]} translateY={'1em'} delay={(e, i) => i * 1000}>
+  <h1 className="signup-title">Register with us!</h1>
+</Anime>
+      <div className='signupform'>
+      
         <form onSubmit={formSubmit}>
-          <label htmlFor='fullName'>
-            <h4>Name</h4>
-            <input
+
+            <FormField
+              label='Name'
               placeholder='Full Name'
               type='text'
               name='fullName'
@@ -120,11 +127,10 @@ const SignUpForm = () => {
             {errorState.fullName.length > 2 ? (
               <p className='error'>{errorState.fullName}</p>
             ) : null}
-          </label>
-          <label htmlFor='email'>
-            <h4>Email</h4>
-          </label>
-          <input
+
+
+          <FormField
+            label="Email"
             placeholder='youremail@email.com'
             type='email'
             name='email'
@@ -139,23 +145,21 @@ const SignUpForm = () => {
           {/* <label htmlFor="phone">Enter your phone number:</label>
 <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"></input> */}
 
-          <label htmlFor='address'>
-            <h4>Address</h4>
-            {errorState.address.length > 0 ? <p>{errorState.address}</p> : null}
+          
+            
 
-            <input
+            <FormField
+              label="Address"
               type='address'
               name='address'
               placeholder='Your Address Here'
               value={formState.address}
               onChange={inputChange}
             />
-          </label>
+          {errorState.address.length > 0 ? <p>{errorState.address}</p> : null}
 
-          <label htmlFor='city'>
-            <h4>City</h4>
-          </label>
-          <input
+          <FormField
+            label='City'
             type='text'
             name='city'
             id='city'
@@ -163,10 +167,9 @@ const SignUpForm = () => {
             onChange={inputChange}
           />
 
-          <label htmlFor='state'>
-            <h4>State</h4>
-          </label>
-          <input
+
+          <FormField
+            label="State"
             type='state'
             name='state'
             id='state'
@@ -185,20 +188,21 @@ const SignUpForm = () => {
   //           onChange={inputChange}
   //         /> */}
 
-          <div className='sauceCard'>
+
             {/* <h4 id="accountType">Account Type:</h4> */}
             <label className='accountType' htmlFor='accountType'>
               <input
+                
                 type='checkbox'
                 name='owner'
                 id='owner'
                 value='true'
                 onChange={inputChange}
               />
-              <p>
-                {' '}
-                <br />
-                Owner: Check only if you want to list items
+              
+              <p>  Owner 
+                <br/>
+                 <span className="p-span">*Check only if you want to list items</span>
               </p>
               {/* <p> */}
               {/* <input 
@@ -209,12 +213,9 @@ const SignUpForm = () => {
               onChange={inputChange}
           />Renter</p> */}
             </label>
-          </div>
 
-          <label htmlFor='username'>
-            <h4>Username</h4>
-          </label>
-          <input
+          <FormField
+            label='Username'
             type='username'
             name='username'
             id='username'
@@ -222,36 +223,34 @@ const SignUpForm = () => {
             onChange={inputChange}
           />
 
-          <label htmlFor='password'>
-            <h4>Password</h4>
-          </label>
-          <input
-            type='text'
+          <FormField
+            label='Password'
+            type='password'
             name='password'
             id='password'
             value={formState.password}
             onChange={inputChange}
           />
 
-          <label htmlFor='confirmPassword'>
-            <h4>Confirm Password</h4>
-          </label>
-          <input
-            type='text'
+          <FormField
+            label="Confirm Password"
+            type='password'
             name='confirmPassword'
             id='confirmPassword'
             value={formState.confirmPassword}
             onChange={inputChange}
           />
-          <label htmlFor='terms'>
+        {/* {errorState.confirmPassword.length > 0 ? <p>{errorState.confirmPassword}</p> : null} */}
+
+          <label htmlFor='terms' className="terms">
             <input
+              label='Terms and Conditions'
               type='checkbox'
               id='terms'
               name='terms'
               checked={formState.terms}
               onChange={inputChange}
-            />{' '}
-            <br />
+            />
             Terms and Conditions
             {errorState.terms.length > 0 ? (
               <p className='error'>{errorState.terms}</p>
@@ -263,6 +262,7 @@ const SignUpForm = () => {
           </button>
         </form>
       </div>
+ 
       {/* <pre>{JSON.stringify(postedData, null, 2)}</pre> */}
     </>
   )
