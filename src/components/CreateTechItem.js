@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import Input from './Input';
-import axios from 'axios';
+// import axios from 'axios';
 import { useHistory } from "react-router-dom";
 
 import {axiosWithAuth} from '../utils/axiosWithAuth';
@@ -50,7 +50,7 @@ function CreateTechItem(props) {
     const [formState, setFormState] = useState(defaultState);
     const [errors, setErrors] = useState(defaultState);
     const [buttonDisabled, setButtonDisabled] = useState(true);
-    const [auctions, setAuctions] = useState([]);
+    // const [auctions, setAuctions] = useState([]);
 
     let formSchema = yup.object().shape({
         itemName: yup
@@ -92,7 +92,7 @@ function CreateTechItem(props) {
             // ({ method: "POST", url: 'https://use-tech.herokuapp.com/api/owner/items', data: formState, withCredentials: true })
             .post('api/owner/items', formState)
             .then((res) => {console.log('form submit success', res)
-                setAuctions([...formState, res.data])})
+                setFormState([...formState, res.data])})
             .catch(err => console.log('Form submission error', err));
             history.push("/");
     };
