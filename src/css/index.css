@@ -714,3 +714,7 @@ a:link {
 .signupform .terms input[type="checkbox" i]{
   margin-top: 2.5px;
 }
+
+.item-description a, .item-pickup-info a{
+  color: darkgreen
+}

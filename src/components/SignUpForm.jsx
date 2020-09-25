@@ -177,22 +177,9 @@ const SignUpForm = () => {
             onChange={inputChange}
           />
 
-          {/* <label htmlFor="zipcode">
-  //         <h4>Zip Code</h4>
-  //  </label>        
-  //       <input
-  //           type="zipcode"
-  //           name="zipcode"
-  //           id="zipcode"
-  //           value={formState.zipcode}
-  //           onChange={inputChange}
-  //         /> */}
-
-
-            {/* <h4 id="accountType">Account Type:</h4> */}
             <label className='accountType' htmlFor='accountType'>
               <input
-                
+                label=""
                 type='checkbox'
                 name='owner'
                 id='owner'
@@ -204,14 +191,7 @@ const SignUpForm = () => {
                 <br/>
                  <span className="p-span">*Check only if you want to list items</span>
               </p>
-              {/* <p> */}
-              {/* <input 
-              type="radio"
-              name="accountType"
-              id="renter"
-              value='false'
-              onChange={inputChange}
-          />Renter</p> */}
+
             </label>
 
           <FormField
@@ -240,7 +220,6 @@ const SignUpForm = () => {
             value={formState.confirmPassword}
             onChange={inputChange}
           />
-        {/* {errorState.confirmPassword.length > 0 ? <p>{errorState.confirmPassword}</p> : null} */}
 
           <label htmlFor='terms' className="terms">
             <input
