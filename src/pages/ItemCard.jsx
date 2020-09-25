@@ -1,14 +1,19 @@
 import React, {useContext, useEffect} from 'react'
 import {IoIosShareAlt} from 'react-icons/io'
 import {UserContext} from '../context/userContext'
-
 import {axiosWithAuth} from '../utils/axiosWithAuth'
-import {Link, useHistory} from 'react-router-dom'
+import {Link, useHistory,
+  Route,
+  Switch,
+  useRouteMatch} from 'react-router-dom'
+import Availability from '../components/Availability'
 
 function ItemCard(props) {
   const {userData} = useContext(UserContext)
   const [data, setData] = React.useState({})
   const history = useHistory()
+  const { path, url } = useRouteMatch();
+
 
   const deleteItem = async () => {
     try {
@@ -28,6 +33,7 @@ function ItemCard(props) {
       .get(`/api/items/${props.match.params.id}`)
       .then((res) => {
         setData(res.data)
+        console.log(res);
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -126,7 +132,7 @@ function ItemCard(props) {
                         src='https://rentitems.com/assets/images/icons/delivery.svg'
                         alt='delivery icon'
                       />
-                      <p>Check availability </p>
+                      <Link to="/">Check availability </Link>
                     </div>
                     <div className='item-pickup-info'>
                       <img
@@ -145,8 +151,13 @@ function ItemCard(props) {
 
         <section>
           <div className='item-description'>
-            <h3>ITEM DESCRIPTION</h3>
-            <p>{data.description}</p>
+            <Link to={`${url}/description`}>ITEM DESCRIPTION</Link>
+            <p><Availability /></p>
+            <Switch>
+        <Route path={`${path}/description`}>
+          <Availability item={props.match.params.id} />
+        </Route>
+        </Switch>
           </div>
           <div className='item-review'>
             <h3>ITEM REVIEWS</h3>
