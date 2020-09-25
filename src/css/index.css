@@ -230,6 +230,7 @@ nav {
   min-height: 70vh;
   display: flex;
   align-items: center;
+  
 }
 .RadioContainer {
   display: flex;
@@ -491,6 +492,12 @@ input.upload {
   margin-top: 30px;
   background: white;
   padding: 10px;
+}
+
+.item-description p{
+  margin-top: 0;
+  background: white;
+  padding: 5px;
 }
 .item-description h3 {
   color: gray;
