@@ -10,7 +10,7 @@ function Availability({item}) {
           .catch((err) => console.log(err))
       }
       ItemDescription()
-  }, [])
+  }, [item])
   return (
     <div>
       <p className="item-description">{description}</p>

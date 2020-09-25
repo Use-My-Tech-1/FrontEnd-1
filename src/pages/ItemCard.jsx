@@ -132,7 +132,7 @@ function ItemCard(props) {
                         src='https://rentitems.com/assets/images/icons/delivery.svg'
                         alt='delivery icon'
                       />
-                      <Link to="/">Check availability </Link>
+                      <Link to={url}>Check availability </Link>
                     </div>
                     <div className='item-pickup-info'>
                       <img
